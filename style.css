@@ -34,3 +34,13 @@ body{
     font-size: 10vmin;
     color: #9E3B3B;
 }
+
+#reset-btn{
+    padding: 1rem;
+    font-size: 1.25rem;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 1rem;
+    box-shadow:  0 0 1rem rgba(0, 0, 0, 0.3);
+}
