@@ -2,6 +2,9 @@
 
 let boxes = document.querySelectorAll('.box');  //it will return the node list of box
 let resetBtn = document.querySelector('#reset-btn');
+let newGameBtn = document.querySelector('#new-btn');
+let msgContainer = document.querySelector('.msg-container');
+let msg = document.querySelector('#msg');
 
 // this is used to decide turn of the player - playerX, playerO
 let turnO = true; 
@@ -35,7 +38,12 @@ boxes.forEach((box) => {
         checkWinner();
     });
 });
+//function to display the winner msg when pattern matches 
 
+const showWinner = () => {
+    msg.innerText = `Congratulations, The Winner is ${winner}`;
+    msgContainer.classList.remove("hide");
+}
 //Check the  winner by checking the winning pattern traversing each pattern in the array and compare it with the player's input pattern 
 
 const checkWinner = () => {
@@ -47,6 +55,7 @@ const checkWinner = () => {
         if(posVal1 != "" && posVal2 != "" && posVal3 != ""){
             if(posVal1 == posVal2 && posVal2 == posVal3){
                 console.log("Winner", posVal1);
+                showWinner();
             }
         }
     }
