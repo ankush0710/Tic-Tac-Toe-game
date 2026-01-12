@@ -1,5 +1,4 @@
-//select the box and button
-
+//select the required elements 
 let boxes = document.querySelectorAll('.box');  //it will return the node list of box
 let resetBtn = document.querySelector('#reset-btn');
 let newGameBtn = document.querySelector('#new-btn');
@@ -21,6 +20,13 @@ let winPattern = [
     [6, 7, 8]
 ]
 
+//function to reset the game whe clicked
+const resetGame = ()=>{
+    turnO = true;
+    msgContainer.classList.add("hide");
+    enabledBox();
+}
+
 // enter the input to the box one-by-one
 boxes.forEach((box) => {
     box.addEventListener('click', ()=>{
@@ -38,14 +44,30 @@ boxes.forEach((box) => {
         checkWinner();
     });
 });
-//function to display the winner msg when pattern matches 
+//function to disabled thr boxes ince the winner is aunounced
+const disabledBox = () => {
+    for(let box of boxes){
+        box.disabled = true;
+    }
+}
 
-const showWinner = () => {
+//function to disabled thr boxes when the reset or new game button is clicked 
+const enabledBox = () => {
+    for(let box of boxes){
+        box.disabled = false;
+        box.innerText = "";
+        box.style.backgroundColor = '#fff';
+    }
+}
+
+//function to display the winner msg when pattern matches 
+const showWinner = (winner) => {
     msg.innerText = `Congratulations, The Winner is ${winner}`;
     msgContainer.classList.remove("hide");
+    disabledBox();
 }
-//Check the  winner by checking the winning pattern traversing each pattern in the array and compare it with the player's input pattern 
 
+//Check the  winner by checking the winning pattern traversing each pattern in the array and compare it with the player's input pattern 
 const checkWinner = () => {
     for(let pattern of winPattern){
         posVal1 = boxes[pattern[0]].innerText;
@@ -55,9 +77,11 @@ const checkWinner = () => {
         if(posVal1 != "" && posVal2 != "" && posVal3 != ""){
             if(posVal1 == posVal2 && posVal2 == posVal3){
                 console.log("Winner", posVal1);
-                showWinner();
+                showWinner(posVal1);
             }
         }
     }
 }
 
+newGameBtn.addEventListener("click", resetGame);
+resetBtn.addEventListener("click", resetGame);
